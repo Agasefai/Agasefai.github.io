@@ -1,1321 +1,163 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Ağasəf's Aİ</title>
-
-<style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#07111f;
-    color:white;
-    height:100vh;
-    overflow:hidden;
-}
-
-.app{
-    height:100vh;
-    display:flex;
-    flex-direction:column;
-}
-
-.header{
-    height:65px;
-    min-height:65px;
-    display:flex;
-    align-items:center;
-    padding:0 15px;
-    background:#0d1b2e;
-    border-bottom:1px solid #203650;
-    gap:10px;
-}
-
-.backButton{
-    display:none;
-    width:40px;
-    height:40px;
-    border:0;
-    border-radius:12px;
-    background:#172b43;
-    color:white;
-    font-size:21px;
-    cursor:pointer;
-}
-
-.backButton:hover{
-    background:#23415f;
-}
-
-.logo{
-    width:42px;
-    height:42px;
-    min-width:42px;
-    border-radius:50%;
-    background:linear-gradient(135deg,#1976ff,#7b2cff);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:21px;
-    font-weight:bold;
-    box-shadow:0 0 18px #1976ff66;
-}
-
-.title{
-    font-size:18px;
-    font-weight:bold;
-}
-
-.status{
-    font-size:12px;
-    color:#5cff9d;
-    margin-top:3px;
-}
-
-.main{
-    flex:1;
-    min-height:0;
-    position:relative;
-}
-
-.page{
-    display:none;
-    height:100%;
-    overflow-y:auto;
-}
-
-.page.active{
-    display:block;
-}
-
-/* HOME */
-
-.home{
-    max-width:850px;
-    margin:0 auto;
-    padding:40px 15px;
-}
-
-.welcome{
-    text-align:center;
-    margin-bottom:28px;
-}
-
-.welcome h1{
-    font-size:31px;
-    margin:0 0 10px;
-}
-
-.welcome p{
-    color:#9db0c7;
-    margin:0;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-}
-
-.card{
-    padding:18px;
-    border:1px solid #203b58;
-    border-radius:15px;
-    background:#0c1a2c;
-    cursor:pointer;
-    text-align:left;
-    transition:.2s;
-}
-
-.card:hover{
-    background:#122840;
-    transform:translateY(-2px);
-}
-
-.card b{
-    display:block;
-    margin-bottom:7px;
-    font-size:16px;
-}
-
-.card span{
-    color:#8297ae;
-    font-size:13px;
-}
-
-/* SECTIONS */
-
-.section{
-    max-width:850px;
-    margin:0 auto;
-    padding:25px 15px 40px;
-}
-
-.sectionTitle{
-    font-size:27px;
-    margin-bottom:8px;
-}
-
-.sectionDescription{
-    color:#91a5bb;
-    margin-bottom:20px;
-}
-
-.mathBox{
-    background:#0d1b2e;
-    border:1px solid #274563;
-    border-radius:18px;
-    padding:18px;
-}
-
-.mathInput{
-    width:100%;
-    padding:15px;
-    border-radius:12px;
-    border:1px solid #31516f;
-    background:#07111f;
-    color:white;
-    outline:none;
-    font-size:17px;
-}
-
-.mathButton{
-    margin-top:12px;
-    padding:13px 18px;
-    border-radius:12px;
-    border:0;
-    background:linear-gradient(135deg,#1478ff,#6b35ff);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.mathResult{
-    margin-top:15px;
-    padding:14px;
-    border-radius:12px;
-    background:#10243d;
-    border:1px solid #1d3d61;
-    min-height:20px;
-}
-
-.infoBox{
-    background:#0d1b2e;
-    border:1px solid #274563;
-    border-radius:18px;
-    padding:20px;
-    line-height:1.7;
-    color:#d7e2ef;
-}
-
-/* CHAT */
-
-.chat{
-    height:100%;
-    overflow-y:auto;
-    padding:20px 14px 120px;
-    scroll-behavior:smooth;
-}
-
-.message{
-    max-width:850px;
-    margin:0 auto 16px;
-    display:flex;
-    gap:10px;
-    animation:appear .25s ease;
-}
-
-@keyframes appear{
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.avatar{
-    min-width:36px;
-    height:36px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-}
-
-.ai .avatar{
-    background:#1565ff;
-}
-
-.user .avatar{
-    background:#34495e;
-}
-
-.bubble{
-    padding:12px 15px;
-    border-radius:15px;
-    line-height:1.55;
-    white-space:pre-wrap;
-    word-break:break-word;
-}
-
-.ai .bubble{
-    background:#10243d;
-    border:1px solid #1d3d61;
-}
-
-.user .bubble{
-    background:#1757a8;
-}
-
-.time{
-    font-size:10px;
-    opacity:.55;
-    margin-top:5px;
-}
-
-.thinking{
-    display:flex;
-    gap:5px;
-    align-items:center;
-}
-
-.dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:#ffd43b;
-    animation:bounce 1s infinite;
-}
-
-.dot:nth-child(2){
-    animation-delay:.15s;
-}
-
-.dot:nth-child(3){
-    animation-delay:.3s;
-}
-
-@keyframes bounce{
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-6px);
-    }
-}
-
-/* CHAT INPUT */
-
-.chatBottom{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    padding:12px;
-    background:linear-gradient(
-        transparent,
-        #07111f 25%
-    );
-}
-
-.inputBox{
-    max-width:850px;
-    margin:auto;
-    background:#0d1b2e;
-    border:1px solid #274563;
-    border-radius:18px;
-    padding:8px;
-    display:flex;
-    align-items:center;
-    gap:7px;
-    box-shadow:0 8px 35px #0008;
-}
-
-textarea{
-    flex:1;
-    resize:none;
-    border:0;
-    outline:0;
-    background:transparent;
-    color:white;
-    font-size:15px;
-    padding:10px;
-    min-height:42px;
-    max-height:120px;
-    font-family:Arial;
-}
-
-textarea::placeholder{
-    color:#8091a7;
-}
-
-button{
-    border:0;
-    cursor:pointer;
-    color:white;
-}
-
-.tool{
-    width:40px;
-    height:40px;
-    border-radius:12px;
-    background:#172b43;
-    font-size:18px;
-}
-
-.tool:hover{
-    background:#23415f;
-}
-
-.send{
-    width:43px;
-    height:43px;
-    border-radius:13px;
-    background:linear-gradient(
-        135deg,
-        #1478ff,
-        #6b35ff
-    );
-    font-size:19px;
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-    .cards{
-        grid-template-columns:1fr;
-    }
-
-    .welcome h1{
-        font-size:26px;
-    }
-
-    .bubble{
-        max-width:82vw;
-    }
-
-    .tool{
-        width:38px;
-        height:38px;
-    }
-
-    .home{
-        padding-top:25px;
-    }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Sistem Hatası</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111111;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .top-bar {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            max-width: 800px;
+            font-size: 14px;
+            color: #666666;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .lab-notice {
+            font-size: 18px;
+            font-weight: 500;
+            color: #d93838;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 25px;
+            color: #000000;
+        }
+
+        .reason-box {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333333;
+            margin-bottom: 35px;
+            border-left: 3px solid #000000;
+            padding-left: 15px;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .reason-box strong {
+            display: block;
+            margin-bottom: 8px;
+            color: #000000;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 14px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #333333;
+        }
+
+        .btn-secondary {
+            background-color: #f1f1f1;
+            color: #000000;
+            border: 1px solid #dcdcdc;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e4e4e4;
+        }
+
+        footer {
+            font-size: 12px;
+            color: #777777;
+            border-top: 1px solid #eaeaea;
+            width: 100%;
+            max-width: 800px;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 48px;
+            }
+            .button-group {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="app">
+    <div class="top-bar">
+        Google Transfer Protocol // Secure Channel
+    </div>
 
-<header class="header">
+    <div class="content">
+        <div class="lab-notice">Laboratuvardan atıldınız</div>
+        
+        <h1>404 SERVICES</h1>
 
-    <button
-        id="backButton"
-        class="backButton"
-        onclick="goHome()">
-        ←
-    </button>
-
-    <div class="logo">A</div>
-
-    <div>
-        <div class="title">
-            Ağasəf's Aİ
+        <div class="reason-box">
+            <strong>Sistem Güvenlik Bildirimi:</strong>
+            Bu site H&H hizmet koşulları ve teknik kütüphane koruyucusu nedeniyle Sistem tarafından kapatılmıştır.<br><br>
+            <strong>H&H moderatörlerinin kuralı:</strong> Bu site aktif olmalı veya bir değişiklik getirilmeli.
         </div>
 
-        <div class="status">
-            ● Hazırdır
+        <div class="button-group">
+            <a href="https://hhiletisim.github.io" class="btn">Destekle iletişime geç</a>
+            <a href="https://hhiletisim.github.io" class="btn btn-secondary">H&H platformunda yeni bir hesap oluşturup site kurmayı deneyim</a>
         </div>
     </div>
 
-</header>
-
-<div class="main">
-
-<!-- ANA SƏHİFƏ -->
-
-<section
-    id="homePage"
-    class="page active">
-
-    <div class="home">
-
-        <div class="welcome">
-
-            <h1>Salam! 👋</h1>
-
-            <p>
-                Mən Ağasəf's Aİ-yam.
-                İstədiyin bölməni seç.
-            </p>
-
-        </div>
-
-        <div class="cards">
-
-            <div
-                class="card"
-                onclick="openSection('math')">
-
-                <b>🧮 Riyaziyyat</b>
-
-                <span>
-                    Hesablamalar və riyaziyyat.
-                </span>
-
-            </div>
-
-            <div
-                class="card"
-                onclick="openSection('programming')">
-
-                <b>💻 Proqramlaşdırma</b>
-
-                <span>
-                    HTML, CSS və JavaScript.
-                </span>
-
-            </div>
-
-            <div
-                class="card"
-                onclick="openSection('memory')">
-
-                <b>🧠 Yaddaş</b>
-
-                <span>
-                    Yadda saxladığın məlumatlar.
-                </span>
-
-            </div>
-
-            <div
-                class="card"
-                onclick="openSection('chat')">
-
-                <b>💬 AI Çatı</b>
-
-                <span>
-                    Ağasəf's Aİ ilə söhbət et.
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- RİYAZİYYAT -->
-
-<section
-    id="mathPage"
-    class="page">
-
-    <div class="section">
-
-        <div class="sectionTitle">
-            🧮 Riyaziyyat
-        </div>
-
-        <div class="sectionDescription">
-            Hesablamaq istədiyin ifadəni yaz.
-        </div>
-
-        <div class="mathBox">
-
-            <input
-                id="mathInput"
-                class="mathInput"
-                type="text"
-                placeholder="Məsələn: 25 × 8">
-
-            <button
-                class="mathButton"
-                onclick="solveMath()">
-                Hesabla
-            </button>
-
-            <div
-                id="mathResult"
-                class="mathResult">
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- PROQRAMLAŞDIRMA -->
-
-<section
-    id="programmingPage"
-    class="page">
-
-    <div class="section">
-
-        <div class="sectionTitle">
-            💻 Proqramlaşdırma
-        </div>
-
-        <div class="sectionDescription">
-            Veb proqramlaşdırmanın əsasları.
-        </div>
-
-        <div class="infoBox">
-
-            <b>HTML</b>
-            — Veb səhifənin strukturunu yaradır.<br><br>
-
-            <b>CSS</b>
-            — Dizaynı və görünüşü idarə edir.<br><br>
-
-            <b>JavaScript</b>
-            — İnteraktivlik və proqramlaşdırma məntiqi əlavə edir.
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- YADDAŞ -->
-
-<section
-    id="memoryPage"
-    class="page">
-
-    <div class="section">
-
-        <div class="sectionTitle">
-            🧠 Yaddaş
-        </div>
-
-        <div class="sectionDescription">
-            Ağasəf's Aİ-nin yaddaşında saxlanılan məlumat.
-        </div>
-
-        <div
-            id="memoryBox"
-            class="infoBox">
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- AI ÇAT -->
-
-<section
-    id="chatPage"
-    class="page">
-
-    <main
-        class="chat"
-        id="chat">
-    </main>
-
-    <div class="chatBottom">
-
-        <div class="inputBox">
-
-            <button
-                class="tool"
-                onclick="startMic()"
-                title="Mikrofon">
-                🎤
-            </button>
-
-            <button
-                class="tool"
-                onclick="openCamera()"
-                title="Kamera">
-                📷
-            </button>
-
-            <textarea
-                id="input"
-                placeholder="Ağasəf's Aİ-yə mesaj yaz..."
-                rows="1"
-                onkeydown="handleKey(event)"
-            ></textarea>
-
-            <button
-                class="send"
-                onclick="sendMessage()">
-                ➤
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-</div>
-</div>
-
-
-<script>
-
-/* =====================================================
-   YADDAŞ
-===================================================== */
-
-let memory = JSON.parse(
-    localStorage.getItem("agasef_memory") || "{}"
-);
-
-function saveMemory(){
-
-    localStorage.setItem(
-        "agasef_memory",
-        JSON.stringify(memory)
-    );
-
-}
-
-
-/* =====================================================
-   BÖLMƏ KEÇİD SƏSİ
-===================================================== */
-
-let audioContext = null;
-
-function initAudio(){
-
-    if(!audioContext){
-
-        audioContext =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
-
-    }
-
-    if(audioContext.state === "suspended"){
-
-        audioContext.resume();
-
-    }
-
-}
-
-
-function playNavigationSound(direction){
-
-    try{
-
-        initAudio();
-
-        const ctx =
-            audioContext;
-
-        const oscillator =
-            ctx.createOscillator();
-
-        const gain =
-            ctx.createGain();
-
-        oscillator.connect(gain);
-        gain.connect(ctx.destination);
-
-        const now =
-            ctx.currentTime;
-
-
-        if(direction === "back"){
-
-            /* Geri qayıtma səsi */
-
-            oscillator.type =
-                "sine";
-
-            oscillator.frequency
-                .setValueAtTime(
-                    650,
-                    now
-                );
-
-            oscillator.frequency
-                .exponentialRampToValueAtTime(
-                    350,
-                    now + 0.14
-                );
-
-            gain.gain
-                .setValueAtTime(
-                    0.0001,
-                    now
-                );
-
-            gain.gain
-                .exponentialRampToValueAtTime(
-                    0.10,
-                    now + 0.015
-                );
-
-            gain.gain
-                .exponentialRampToValueAtTime(
-                    0.0001,
-                    now + 0.17
-                );
-
-            oscillator.start(now);
-
-            oscillator.stop(
-                now + 0.18
-            );
-
-        }else{
-
-            /* Bölmə açılma səsi */
-
-            oscillator.type =
-                "sine";
-
-            oscillator.frequency
-                .setValueAtTime(
-                    430,
-                    now
-                );
-
-            oscillator.frequency
-                .exponentialRampToValueAtTime(
-                    760,
-                    now + 0.13
-                );
-
-            gain.gain
-                .setValueAtTime(
-                    0.0001,
-                    now
-                );
-
-            gain.gain
-                .exponentialRampToValueAtTime(
-                    0.10,
-                    now + 0.015
-                );
-
-            gain.gain
-                .exponentialRampToValueAtTime(
-                    0.0001,
-                    now + 0.17
-                );
-
-            oscillator.start(now);
-
-            oscillator.stop(
-                now + 0.18
-            );
-
-        }
-
-    }catch(error){
-
-        console.log(
-            "Səs xətası:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   NAVİQASİYA
-===================================================== */
-
-function openSection(section){
-
-    /*
-       Yalnız bölmə dəyişəndə səs verir.
-       Digər funksiyalarda bu funksiya çağırılmır.
-    */
-
-    if(section === "home"){
-
-        playNavigationSound(
-            "back"
-        );
-
-    }else{
-
-        playNavigationSound(
-            "forward"
-        );
-
-    }
-
-
-    const pages =
-        document.querySelectorAll(".page");
-
-    pages.forEach(page=>{
-
-        page.classList.remove(
-            "active"
-        );
-
-    });
-
-
-    const selected =
-        document.getElementById(
-            section + "Page"
-        );
-
-
-    if(selected){
-
-        selected.classList.add(
-            "active"
-        );
-
-    }
-
-
-    const backButton =
-        document.getElementById(
-            "backButton"
-        );
-
-
-    if(section === "home"){
-
-        backButton.style.display =
-            "none";
-
-    }else{
-
-        backButton.style.display =
-            "block";
-
-    }
-
-
-    if(section === "memory"){
-
-        updateMemory();
-
-    }
-
-
-    if(section === "chat"){
-
-        const chat =
-            document.getElementById(
-                "chat"
-            );
-
-
-        if(chat.children.length === 0){
-
-            addMessage(
-                "Salam! 👋 Mən Ağasəf's Aİ-yam. Buradayam və səninlə söhbət etməyə hazıram. Günün necə keçir?",
-                "ai"
-            );
-
-        }
-
-    }
-
-}
-
-
-function goHome(){
-
-    openSection(
-        "home"
-    );
-
-}
-
-
-/* =====================================================
-   SAAT
-===================================================== */
-
-function getTime(){
-
-    return new Date()
-        .toLocaleTimeString(
-            "az-AZ",
-            {
-                hour:"2-digit",
-                minute:"2-digit"
-            }
-        );
-
-}
-
-
-/* =====================================================
-   MESAJ
-===================================================== */
-
-function addMessage(
-    text,
-    type
-){
-
-    const chat =
-        document.getElementById(
-            "chat"
-        );
-
-
-    const message =
-        document.createElement(
-            "div"
-        );
-
-
-    message.className =
-        "message " + type;
-
-
-    const avatar =
-        document.createElement(
-            "div"
-        );
-
-
-    avatar.className =
-        "avatar";
-
-
-    avatar.textContent =
-        type === "ai"
-        ? "A"
-        : "S";
-
-
-    const content =
-        document.createElement(
-            "div"
-        );
-
-
-    const bubble =
-        document.createElement(
-            "div"
-        );
-
-
-    bubble.className =
-        "bubble";
-
-
-    bubble.textContent =
-        text;
-
-
-    const time =
-        document.createElement(
-            "div"
-        );
-
-
-    time.className =
-        "time";
-
-
-    time.textContent =
-        getTime();
-
-
-    content.appendChild(
-        bubble
-    );
-
-    content.appendChild(
-        time
-    );
-
-    message.appendChild(
-        avatar
-    );
-
-    message.appendChild(
-        content
-    );
-
-    chat.appendChild(
-        message
-    );
-
-
-    chat.scrollTop =
-        chat.scrollHeight;
-
-}
-
-
-/* =====================================================
-   DÜŞÜNÜR
-===================================================== */
-
-function showThinking(){
-
-    const chat =
-        document.getElementById(
-            "chat"
-        );
-
-
-    const message =
-        document.createElement(
-            "div"
-        );
-
-
-    message.className =
-        "message ai";
-
-
-    message.id =
-        "thinkingMessage";
-
-
-    message.innerHTML = `
-        <div class="avatar">A</div>
-
-        <div class="bubble">
-
-            <div class="thinking">
-
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-
-            </div>
-
-        </div>
-    `;
-
-
-    chat.appendChild(
-        message
-    );
-
-
-    chat.scrollTop =
-        chat.scrollHeight;
-
-}
-
-
-function hideThinking(){
-
-    const element =
-        document.getElementById(
-            "thinkingMessage"
-        );
-
-
-    if(element){
-
-        element.remove();
-
-    }
-
-}
-
-
-/* =====================================================
-   RİYAZİYYAT
-===================================================== */
-
-function calculate(text){
-
-    let expression =
-        text
-        .toLowerCase()
-        .replace(/neçə edir/g,"")
-        .replace(/neces edir/g,"")
-        .replace(/hesabla/g,"")
-        .replace(/nə qədərdir/g,"")
-        .replace(/ne qederdir/g,"")
-        .replace(/,/g,".")
-        .trim();
-
-
-    expression =
-        expression
-        .replace(/×/g,"*")
-        .replace(/x/g,"*")
-        .replace(/÷/g,"/")
-        .replace(/:/g,"/");
-
-
-    if(
-        !/^[0-9+\-*/().%\s]+$/
-        .test(expression)
-    ){
-
-        return null;
-
-    }
-
-
-    try{
-
-        const result =
-            Function(
-                '"use strict"; return (' +
-                expression +
-                ')'
-            )();
-
-
-        if(
-            typeof result === "number" &&
-            Number.isFinite(result)
-        ){
-
-            return result;
-
-        }
-
-    }catch(e){}
-
-
-    return null;
-
-}
-
-
-function solveMath(){
-
-    const input =
-        document.getElementById(
-            "mathInput"
-        );
-
-
-    const resultBox =
-        document.getElementById(
-            "mathResult"
-        );
-
-
-    const value =
-        input.value.trim();
-
-
-    if(!value){
-
-        resultBox.textContent =
-            "";
-
-        return;
-
-    }
-
-
-    const result =
-        calculate(value);
-
-
-    if(result !== null){
-
-        resultBox.textContent =
-            "🧮 Cavab: " +
-            result;
-
-    }else{
-
-        resultBox.textContent =
-            "❌ Bu ifadəni hesablamaq mümkün olmadı.";
-
-    }
-
-}
-
-
-/* =====================================================
-   YADDAŞ
-===================================================== */
-
-function updateMemory(){
-
-    const box =
-        document.getElementById(
-            "memoryBox"
-        );
-
-
-    let text = "";
-
-
-    if(memory.name){
-
-        text +=
-            "👤 Ad: " +
-            memory.name +
-            "\n\n";
-
-    }
-
-
-    if(memory.mood){
-
-        text +=
-            "💭 Son əhval: " +
-            memory.mood +
-            "\n\n";
-
-    }
-
-
-    if(memory.favorite){
-
-        text +=
-            "⭐ Sevimli məlumat: " +
-            memory.favorite +
-            "\n\n";
-
-    }
-
-
-    if(!text){
-
-        text =
-            "🧠 Hələ yadda saxlanılmış məlumat yoxdur.";
-
-    }
-
-
-    box.textContent =
-        text;
-
-}
-
-
-/* ======
+    <footer>
+        Çerezler (Cookies): Bu sistem güvenli oturum ve protokol yönetimi için çerez politikalarını uygular. Tüm hakları saklıdır.
+    </footer>
+
+</body>
+</html>
