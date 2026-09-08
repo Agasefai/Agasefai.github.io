@@ -1,157 +1,1265 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Baxım Molası</title>
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #111111;
-            --muted-color: #666666;
-            --border-color: #e5e5e5;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-        }
+<title>Ağasəf AI</title>
 
-        .container {
-            max-width: 600px;
-            padding: 40px 20px;
-            margin: auto;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        h1 {
-            font-size: 72px;
-            font-weight: 800;
-            margin: 0 0 20px 0;
-            letter-spacing: -2px;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: #07111f;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: var(--muted-color);
-            margin-bottom: 40px;
-        }
+button,
+input,
+textarea {
+    font-family: inherit;
+}
 
-        .moderator-card {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 24px;
-            background: #fafafa;
-            border: 1px solid var(--border-color);
-            border-radius: 50px;
-            margin-top: 20px;
-        }
+button {
+    cursor: pointer;
+}
 
-        .moderator-avatar {
-            width: 40px;
-            height: 40px;
-            background-color: #d1d5db;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #374151;
-            font-size: 16px;
-        }
+.app {
+    flex: 1;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #17345c 0%, #07111f 45%, #040811 100%);
+}
 
-        .moderator-info {
-            text-align: left;
-        }
+/* TOP BAR (Google Translate & Header) */
 
-        .moderator-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--muted-color);
-            display: block;
-        }
+.top-bar {
+    background: rgba(5, 12, 24, 0.98);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    padding: 8px 16px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+}
 
-        .moderator-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-color);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+#google_translate_element {
+    transform: scale(0.9);
+    transform-origin: right center;
+}
 
-        .verified-badge {
-            color: #1d9bf0;
-            display: inline-flex;
-            align-items: center;
-        }
+header {
+    height: 68px;
+    position: sticky;
+    top: 45px;
+    z-index: 1000;
 
-        .verified-badge svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-        .footer {
-            padding: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
+    padding: 0 16px;
 
-        /* Google Translate Element Stili */
-        #google_translate_element {
-            margin-top: 10px;
-        }
-    </style>
+    background: rgba(5, 12, 24, 0.94);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(12px);
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: bold;
+    color: #55a8ff;
+}
+
+.logo span {
+    color: white;
+}
+
+.home-button {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 12px;
+    background: #14243b;
+    color: white;
+    font-size: 21px;
+}
+
+/* SƏHİFƏ */
+
+.page {
+    display: none;
+    min-height: calc(100vh - 113px);
+    padding: 20px 14px 40px;
+}
+
+.page.active {
+    display: block;
+}
+
+/* ANA SƏHİFƏ */
+
+.hero {
+    text-align: center;
+    padding: 35px 10px 28px;
+}
+
+.ai-logo {
+    width: 88px;
+    height: 88px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 25px;
+
+    background: linear-gradient(
+        135deg,
+        #087cff,
+        #7045ff
+    );
+
+    font-size: 42px;
+
+    box-shadow:
+        0 15px 45px rgba(30,120,255,.3);
+}
+
+.hero h1 {
+    font-size: 31px;
+}
+
+.hero p {
+    margin-top: 10px;
+    color: #9baac0;
+    line-height: 1.6;
+}
+
+.title {
+    font-size: 19px;
+    margin-bottom: 14px;
+}
+
+/* BÖLMƏLƏR */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+}
+
+.card {
+    min-height: 145px;
+
+    padding: 18px;
+
+    border-radius: 20px;
+
+    background: rgba(18, 32, 53, .9);
+    border: 1px solid rgba(255,255,255,.08);
+
+    transition: .2s;
+}
+
+.card:hover {
+    border-color: #368cff;
+    transform: translateY(-3px);
+}
+
+.card:active {
+    transform: scale(.97);
+}
+
+.card-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+.card p {
+    color: #91a0b5;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+/* SƏHİFƏ BAŞLIĞI */
+
+.page-header {
+    max-width: 850px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.back-button {
+    width: 43px;
+    height: 43px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: #14243b;
+    color: white;
+
+    font-size: 22px;
+}
+
+.page-header h2 {
+    font-size: 23px;
+}
+
+/* KONTENT */
+
+.box {
+    max-width: 850px;
+    margin: 0 auto;
+
+    padding: 18px;
+
+    border-radius: 20px;
+
+    background: rgba(10, 22, 39, .94);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.description {
+    color: #9baac0;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/* INPUT */
+
+.input {
+    width: 100%;
+
+    padding: 14px;
+
+    margin-bottom: 11px;
+
+    border: 1px solid #293c57;
+    border-radius: 13px;
+
+    outline: none;
+
+    background: #081321;
+    color: white;
+
+    font-size: 16px;
+}
+
+.input:focus {
+    border-color: #398cff;
+}
+
+textarea.input {
+    min-height: 180px;
+    resize: vertical;
+}
+
+/* BUTTON */
+
+.primary {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #087cff,
+        #6445ff
+    );
+
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.primary:active {
+    transform: scale(.98);
+}
+
+/* NƏTİCƏ */
+
+.result {
+    display: none;
+
+    margin-top: 14px;
+    padding: 14px;
+
+    border-radius: 13px;
+
+    background: #09182b;
+    border: 1px solid #1d3c62;
+
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+.result.show {
+    display: block;
+}
+
+/* YADDAŞ */
+
+.memory-list {
+    margin-top: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.memory-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 13px;
+
+    border-radius: 13px;
+
+    background: #0b1728;
+    border: 1px solid #1b304b;
+}
+
+.memory-text {
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+.delete-button {
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 9px;
+
+    padding: 8px 11px;
+
+    background: #401a25;
+    color: #ff9baa;
+}
+
+/* CHAT */
+
+.chat {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.messages {
+    height: 400px;
+
+    overflow-y: auto;
+
+    padding: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.message {
+    max-width: 85%;
+
+    padding: 11px 14px;
+
+    border-radius: 15px;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+.message.ai {
+    align-self: flex-start;
+    background: #172942;
+}
+
+.message.user {
+    align-self: flex-end;
+    background: #176ff0;
+}
+
+.chat-row {
+    display: flex;
+    gap: 8px;
+}
+
+.chat-input {
+    margin: 0;
+}
+
+.send {
+    width: 55px;
+    flex-shrink: 0;
+
+    border: none;
+    border-radius: 13px;
+
+    background: #176ff0;
+    color: white;
+
+    font-size: 20px;
+}
+
+/* FOOTER & COOKIES */
+
+footer {
+    text-align: center;
+    padding: 25px 16px;
+    font-size: 13px;
+    color: #8a9bb8;
+    border-top: 1px solid rgba(255,255,255,.05);
+    background: #040914;
+    margin-top: auto;
+}
+
+.api-credit {
+    margin-top: 6px;
+    color: #55a8ff;
+    font-weight: 600;
+}
+
+/* COOKIE BANNER */
+
+.cookie-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(13, 27, 48, 0.95);
+    border: 1px solid rgba(85, 168, 255, 0.3);
+    padding: 16px 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+}
+
+.cookie-text {
+    font-size: 13px;
+    color: #cbd5e1;
+    line-height: 1.4;
+}
+
+.cookie-btn {
+    background: #087cff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+/* MOBİL */
+
+@media (max-width: 600px) {
+
+    .cards {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+
+    .card {
+        min-height: 135px;
+        padding: 15px;
+    }
+
+    .card-icon {
+        font-size: 28px;
+    }
+
+    .box {
+        padding: 15px;
+    }
+
+}
+
+@media (max-width: 390px) {
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+}
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <!-- 404 Xətası -->
-        <h1>404 ERROR</h1>
-        
-        <!-- Açıqlama -->
-        <p>Hay aksi! Maalesef bu site bir moderatör tarafından inceleniliyor.. bakım molası 15 - 1 saat içerisinde sona erecektir.</p>
+<div class="app">
 
-        <!-- Moderator Kartı -->
-        <div class="moderator-card">
-            <div class="moderator-avatar">HB</div>
-            <div class="moderator-info">
-                <span class="moderator-label">SİTEYİ İNCELEYEN MODERATÖR</span>
-                <span class="moderator-name">
-                    Huseyn Bağırov
-                    <span class="verified-badge" title="Təsdiqlənmiş hesab">
-                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                    </span>
-                </span>
-            </div>
+<!-- YUXARI GOOGLE TƏRCÜMƏ BAR-I -->
+<div class="top-bar">
+    <div id="google_translate_element"></div>
+</div>
+
+<header>
+    <div class="logo">
+        Ağasəf <span>AI</span>
+    </div>
+
+    <button
+        class="home-button"
+        type="button"
+        onclick="showPage('home')"
+        aria-label="Ana səhifə">
+        🏠
+    </button>
+</header>
+
+
+<!-- ================= ANA SƏHİFƏ ================= -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="ai-logo">
+            🤖
         </div>
+
+        <h1>Ağasəf AI</h1>
+
+        <p>
+            Ağıllı köməkçin. Aşağıdakı bölmələrdən birini seç.
+        </p>
+
     </div>
 
-    <!-- Google Translate Bölməsi -->
-    <div class="footer">
-        <div id="google_translate_element"></div>
+
+    <h2 class="title">
+        Bölmələr
+    </h2>
+
+
+    <div class="cards">
+
+        <div
+            class="card"
+            role="button"
+            tabindex="0"
+            onclick="showPage('math')"
+            onkeydown="openWithKeyboard(event,'math')">
+
+            <div class="card-icon">🧮</div>
+
+            <h3>Riyaziyyat</h3>
+
+            <p>
+                Riyazi ifadələri hesabla.
+            </p>
+
+        </div>
+
+
+        <div
+            class="card"
+            role="button"
+            tabindex="0"
+            onclick="showPage('programming')"
+            onkeydown="openWithKeyboard(event,'programming')">
+
+            <div class="card-icon">💻</div>
+
+            <h3>Proqramlaşdırma</h3>
+
+            <p>
+                Kodlarını yaz və yoxla.
+            </p>
+
+        </div>
+
+
+        <div
+            class="card"
+            role="button"
+            tabindex="0"
+            onclick="showPage('memory')"
+            onkeydown="openWithKeyboard(event,'memory')">
+
+            <div class="card-icon">🧠</div>
+
+            <h3>Yaddaş</h3>
+
+            <p>
+                Qeydlərini yadda saxla.
+            </p>
+
+        </div>
+
+
+        <div
+            class="card"
+            role="button"
+            tabindex="0"
+            onclick="showPage('chat')"
+            onkeydown="openWithKeyboard(event,'chat')">
+
+            <div class="card-icon">💬</div>
+
+            <h3>AI Çatı</h3>
+
+            <p>
+                Ağasəf AI ilə söhbət et.
+            </p>
+
+        </div>
+
     </div>
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({pageLanguage: 'tr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+</section>
+
+
+<!-- ================= RİYAZİYYAT ================= -->
+
+<section id="math" class="page">
+
+    <div class="page-header">
+
+        <button
+            class="back-button"
+            type="button"
+            onclick="goBack()">
+            ←
+        </button>
+
+        <h2>🧮 Riyaziyyat</h2>
+
+    </div>
+
+
+    <div class="box">
+
+        <p class="description">
+            Riyazi ifadəni yaz və nəticəni hesabla.
+        </p>
+
+
+        <input
+            id="mathInput"
+            class="input"
+            type="text"
+            autocomplete="off"
+            placeholder="Məsələn: 25 × 8 + 10">
+
+
+        <button
+            class="primary"
+            type="button"
+            onclick="calculateMath()">
+            🧮 Hesabla
+        </button>
+
+
+        <div
+            id="mathResult"
+            class="result">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROQRAMLAŞDIRMA ================= -->
+
+<section id="programming" class="page">
+
+    <div class="page-header">
+
+        <button
+            class="back-button"
+            type="button"
+            onclick="goBack()">
+            ←
+        </button>
+
+        <h2>💻 Proqramlaşdırma</h2>
+
+    </div>
+
+
+    <div class="box">
+
+        <p class="description">
+            HTML kodunu yaz və nəticəsini təhlükəsiz önizləmədə gör.
+        </p>
+
+
+        <textarea
+            id="codeInput"
+            class="input"
+            placeholder="Məsələn:
+
+<h1>Salam Ağasəf!</h1>
+<p>Bu mənim ilk səhifəmdir.</p>"></textarea>
+
+
+        <button
+            class="primary"
+            type="button"
+            onclick="runCode()">
+            ▶ Önizləməni aç
+        </button>
+
+
+        <div
+            id="codeResult"
+            class="result">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= YADDAŞ ================= -->
+
+<section id="memory" class="page">
+
+    <div class="page-header">
+
+        <button
+            class="back-button"
+            type="button"
+            onclick="goBack()">
+            ←
+        </button>
+
+        <h2>🧠 Yaddaş</h2>
+
+    </div>
+
+
+    <div class="box">
+
+        <p class="description">
+            Qeyd yaz. Qeyd cihazındakı brauzerin yaddaşında saxlanacaq.
+        </p>
+
+
+        <input
+            id="memoryInput"
+            class="input"
+            type="text"
+            autocomplete="off"
+            placeholder="Məsələn: Mənim layihəm">
+
+
+        <button
+            class="primary"
+            type="button"
+            onclick="saveMemory()">
+            💾 Yadda saxla
+        </button>
+
+
+        <div
+            id="memoryList"
+            class="memory-list">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI ÇATI ================= -->
+
+<section id="chat" class="page">
+
+    <div class="page-header">
+
+        <button
+            class="back-button"
+            type="button"
+            onclick="goBack()">
+            ←
+        </button>
+
+        <h2>💬 AI Çatı</h2>
+
+    </div>
+
+
+    <div class="box chat">
+
+        <div
+            id="messages"
+            class="messages">
+
+            <div class="message ai">
+                Salam! 👋 Mən Ağasəf AI-yam.
+                Sualını yaza bilərsən.
+            </div>
+
+        </div>
+
+
+        <div class="chat-row">
+
+            <input
+                id="chatInput"
+                class="input chat-input"
+                type="text"
+                autocomplete="off"
+                placeholder="Mesajını yaz...">
+
+
+            <button
+                class="send"
+                type="button"
+                onclick="sendMessage()">
+                ➤
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div>© 2026 Ağasəf AI. Bütün hüquqlar qorunur.</div>
+    <div class="api-credit">H&H Developer Console API ilə redaktə edildi</div>
+</footer>
+
+<!-- COOKIE BANNER -->
+<div id="cookieBanner" class="cookie-banner">
+    <div class="cookie-text">
+        🍪 Bu sayt işləkliyini təmin etmək və xidmətləri yaxşılaşdırmaq üçün çərəzlərdən (cookies) istifadə edir.
+    </div>
+    <button class="cookie-btn" onclick="acceptCookies()">Qəbul et</button>
+</div>
+
+
+<!-- GOOGLE TRANSLATE SCRIPT -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'az', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+<script>
+
+/* =========================================
+   SƏHİFƏ SİSTEMİ
+========================================= */
+
+const pageIds = [
+    "home",
+    "math",
+    "programming",
+    "memory",
+    "chat"
+];
+
+
+function showPage(pageId) {
+
+    if (!pageIds.includes(pageId)) {
+        pageId = "home";
+    }
+
+    pageIds.forEach(function(id) {
+
+        const page = document.getElementById(id);
+
+        if (page) {
+            page.classList.remove("active");
         }
-    </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-</body>
-</html>
+    });
+
+
+    const selectedPage =
+        document.getElementById(pageId);
+
+
+    if (selectedPage) {
+        selectedPage.classList.add("active");
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if (window.location.hash !== "#" + pageId) {
+
+        history.pushState(
+            { page: pageId },
+            "",
+            "#" + pageId
+        );
+
+    }
+}
+
+
+function goBack() {
+
+    showPage("home");
+
+}
+
+
+function openWithKeyboard(event, pageId) {
+
+    if (
+        event.key === "Enter" ||
+        event.key === " "
+    ) {
+
+        event.preventDefault();
+
+        showPage(pageId);
+
+    }
+}
+
+
+window.addEventListener("popstate", function() {
+
+    loadPageFromHash();
+
+});
+
+
+function loadPageFromHash() {
+
+    let pageId =
+        window.location.hash.substring(1);
+
+
+    if (!pageIds.includes(pageId)) {
+        pageId = "home";
+    }
+
+
+    pageIds.forEach(function(id) {
+
+        const page =
+            document.getElementById(id);
+
+        if (page) {
+            page.classList.remove("active");
+        }
+
+    });
+
+
+    const page =
+        document.getElementById(pageId);
+
+
+    if (page) {
+        page.classList.add("active");
+    }
+
+}
+
+
+window.addEventListener("DOMContentLoaded", function() {
+
+    loadPageFromHash();
+
+    loadMemories();
+
+    checkCookies();
+
+});
+
+
+/* =========================================
+   ÇƏRƏZ (COOKIE) İDARƏSİ
+========================================= */
+
+function checkCookies() {
+    if (localStorage.getItem("cookiesAccepted") === "true") {
+        document.getElementById("cookieBanner").style.display = "none";
+    }
+}
+
+function acceptCookies() {
+    localStorage.setItem("cookiesAccepted", "true");
+    document.getElementById("cookieBanner").style.display = "none";
+}
+
+
+/* =========================================
+   RİYAZİYYAT
+========================================= */
+
+function calculateMath() {
+
+    const input =
+        document.getElementById("mathInput");
+
+    const result =
+        document.getElementById("mathResult");
+
+
+    const original =
+        input.value.trim();
+
+
+    if (!original) {
+
+        showResult(
+            result,
+            "⚠️ Zəhmət olmasa riyazi ifadə yaz."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        let expression =
+            original
+                .replace(/×/g, "*")
+                .replace(/÷/g, "/")
+                .replace(/,/g, ".")
+                .replace(/−/g, "-")
+                .replace(/\^/g, "**")
+                .replace(/√\s*\(/g, "Math.sqrt(");
+
+
+        const allowed =
+            /^[0-9+\-*/().%\s*]+$/;
+
+
+        if (!allowed.test(expression)) {
+
+            throw new Error("INVALID_EXPRESSION");
+
+        }
+
+
+        const answer =
+            Function(
+                '"use strict"; return (' +
+                expression +
+                ')'
+            )();
+
+
+        if (
+            typeof answer !== "number" ||
+            !Number.isFinite(answer)
+        ) {
+
+            throw new Error("INVALID_RESULT");
+
+        }
+
+
+        showResult(
+            result,
+            "✅ Nəticə: <strong>" +
+            formatNumber(answer) +
+            "</strong>"
+        );
+
+
+    } catch (error) {
+
+        showResult(
+            result,
+            "❌ İfadə düzgün deyil.<br><br>" +
+            "Nümunə: <strong>25 × 8 + 10</strong>"
+        );
+
+    }
+
+}
+
+
+function formatNumber(number) {
+
+    if (Number.isInteger(number)) {
+        return number.toLocaleString("az-AZ");
+    }
+
+    return number.toLocaleString(
+        "az-AZ",
+        {
+            maximumFractionDigits: 10
+        }
+    );
+
+}
+
+
+function showResult(element, html) {
+
+    element.innerHTML = html;
+
+    element.classList.add("show");
+
+}
+
+
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Enter" &&
+        document.activeElement &&
+        document.activeElement.id === "mathInput"
+    ) {
+
+        calculateMath();
+
+    }
+
+});
+
+
+/* =========================================
+   PROQRAMLAŞDIRMA
+========================================= */
+
+function runCode() {
+
+    const code =
+        document.getElementById("codeInput").value.trim();
+
+
+    const result =
+        document.getElementById("codeResult");
+
+
+    if (!code) {
+
+        showResult(
+            result,
+            "⚠️ Əvvəlcə HTML kodu yaz."
+        );
+
+        return;
+    }
+
+
+    const iframe =
+        document.createElement("iframe");
+
+
+    iframe.style.width = "100%";
+    iframe.style.height = "300px";
+    iframe.style.marginTop = "12px";
+    iframe.style.border = "1px solid #293c57";
+    iframe.style.borderRadius = "12px";
+    iframe.style.background = "white";
+
+
+    iframe.setAttribute(
+        "sandbox",
+        "allow-scripts"
+    );
+
+
+    result.innerHTML = "";
+
+    result.appendChild(iframe);
+
+    result.classList.add("show");
+
+
+    const iframeDocument =
+        iframe.contentDocument ||
+        iframe.contentWindow.document;
+
+
+    iframeDocument.open();
+
+    iframeDocument.write(code);
+
+    iframeDocument.close();
+
+}
+
+
+/* =========================================
+   YADDAŞ
+========================================= */
+
+const MEMORY_KEY =
+    "agasef_ai_memory_v2";
+
+
+function getMemories() {
+
+    try {
+
+        const data =
+            localStorage.getItem(MEMORY_KEY);
+
+
+        if (!data) {
+            return [];
+        }
+
+
+        const parsed =
+            JSON.parse(data);
+
+
+        return Array.isArray(parsed)
+            ? parsed
+            : [];
+
+
+   
