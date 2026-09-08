@@ -36,7 +36,7 @@
         }
 
         .content {
-            max-width: 700px;
+            max-width: 750px;
             margin: auto;
         }
 
@@ -61,7 +61,7 @@
             font-size: 16px;
             line-height: 1.6;
             color: #333333;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             border-left: 3px solid #000000;
             padding-left: 15px;
             text-align: left;
@@ -74,6 +74,86 @@
             display: block;
             margin-bottom: 8px;
             color: #000000;
+        }
+
+        /* 1 günlük geri sayım üçün stil (Bir az böyük) */
+        .countdown-container {
+            background: #111111;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .countdown-title {
+            font-size: 14px;
+            color: #aaaaaa;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #countdown {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #ffcc00;
+        }
+
+        /* Moderatör raporu və şərtlər üçün stil */
+        .report-box {
+            background: #fff3f3;
+            border: 1px solid #ffcccc;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+            font-size: 15px;
+            color: #222222;
+            line-height: 1.5;
+        }
+
+        .report-box h3 {
+            font-size: 16px;
+            color: #d93838;
+            margin-bottom: 10px;
+        }
+
+        .report-box ol {
+            margin-left: 20px;
+            margin-top: 8px;
+            margin-bottom: 12px;
+        }
+
+        .report-box li {
+            margin-bottom: 5px;
+        }
+
+        .console-note {
+            font-size: 13px;
+            font-weight: 600;
+            color: #000000;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Qəbul edirəm xanası */
+        .accept-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .accept-box input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
         }
 
         .button-group {
@@ -137,6 +217,30 @@
             <strong>H&H moderatörlerinin kuralı:</strong> Bu site aktif olmalı veya bir değişiklik getirilmeli.
         </div>
 
+        <!-- 1 Günlük Geri Sayım (Böyük şriftlə və yenilənməyən sistemlə) -->
+        <div class="countdown-container">
+            <div class="countdown-title">Sistemin Yenidən Aktivləşməsinə Qalan Vaxt</div>
+            <div id="countdown">23:59:59</div>
+        </div>
+
+        <!-- Moderatör Raporu və Şərtlər -->
+        <div class="report-box">
+            <h3>Sitemi Açma Raporu Moderatör Tərəfindən Başladıldı</h3>
+            <p>Şərtlər:</p>
+            <ol>
+                <li>Site aktif olmalıdır.</li>
+                <li>Sitedə düzənli 2 həftə içərisində sunucu bakımı edilməlidir.</li>
+                <li>Sitedə keçərsiz #C dilindən istifadə qadağandır.</li>
+            </ol>
+            <span class="console-note">Bu məlumatları qəbul edin və 24 saatlıq bir işlemde site H&H Console'yə qəbul olunacaq.</span>
+        </div>
+
+        <!-- Qəbul edirəm kvadratı -->
+        <label class="accept-box">
+            <input type="checkbox" id="acceptCheck">
+            <span>Qəbul edirəm</span>
+        </label>
+
         <div class="button-group">
             <a href="https://hhiletisim.github.io" class="btn">Destekle iletişime geç</a>
             <a href="https://hhlogin.github.io" class="btn btn-secondary">H&H platformunda yeni bir hesap oluşturup site kurmayı deneyim</a>
@@ -147,6 +251,38 @@
         Çerezler (Cookies): Bu sistem güvenli oturum ve protokol yönetimi için çerez politikalarını uygular. Tüm hakları saklıdır.
     </footer>
 
+    <script>
+        // Hər girişdə yenilənməyən, stabil 24 saatlıq geri sayım skripti
+        const countdownTimeKey = "hh_countdown_end_time";
+        let endTime = localStorage.getItem(countdownTimeKey);
+
+        if (!endTime) {
+            // Əgər ilk dəfədirsə, indiki vaxtın üzərinə 24 saat (86400000 millisaniyə) əlavə et
+            endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+            localStorage.setItem(countdownTimeKey, endTime);
+        } else {
+            endTime = parseInt(endTime);
+        }
+
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "00:00:00";
+                clearInterval(timerInterval);
+                return;
+            }
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = 
+                (hours < 10 ? "0" : "") + hours + ":" +
+                (minutes < 10 ? "0" : "") + minutes + ":" +
+                (seconds < 10 ? "0" : "") + seconds;
+        }, 1000);
+    </script>
 </body>
-    </html>
-    
+</html>
