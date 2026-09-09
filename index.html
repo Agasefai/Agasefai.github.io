@@ -2,7 +2,8 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Mobil cihazlarda belə masaüstü rejimdə (1024px genişlikdə) açılması üçün: -->
+    <meta name="viewport" content="width=1024">
     <title>404 - Səhifə Tapılmadı</title>
     <style>
         body {
@@ -29,12 +30,18 @@
         }
         h2 {
             font-size: 24px;
-            margin: 10px 0 20px;
+            margin: 10px 0 10px;
         }
         p {
             color: #64748b;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 16px;
+        }
+        .moderator {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            font-style: italic;
         }
         a {
             display: inline-block;
@@ -56,6 +63,7 @@
         <h1>404</h1>
         <h2>Axtardığın səhifə tapılmadı</h2>
         <p>Görünür, daxil etdiyin ünvan səhvdir və ya bu səhifə artıq mövcud deyil.</p>
+        <div class="moderator">Moderator: Huseyn Bağırov</div>
         <a href="/">Ana səhifəyə qayıt</a>
     </div>
 </body>
