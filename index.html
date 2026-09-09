@@ -2,69 +2,156 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <!-- Mobil cihazlarda belə masaüstü rejimdə (1024px genişlikdə) açılması üçün: -->
-    <meta name="viewport" content="width=1024">
-    <title>404 - Səhifə Tapılmadı</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Baxım Molası</title>
     <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #111111;
+            --muted-color: #666666;
+            --border-color: #e5e5e5;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            background-color: #f8fafc;
-            color: #0f172a;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
             align-items: center;
-            height: 100vh;
             text-align: center;
         }
+
         .container {
-            max-width: 500px;
-            padding: 20px;
+            max-width: 600px;
+            padding: 40px 20px;
+            margin: auto;
         }
+
         h1 {
-            font-size: 100px;
-            margin: 0;
-            color: #0284c7;
-            font-weight: bold;
+            font-size: 72px;
+            font-weight: 800;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
         }
-        h2 {
-            font-size: 24px;
-            margin: 10px 0 10px;
-        }
+
         p {
-            color: #64748b;
-            margin-bottom: 25px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--muted-color);
+            margin-bottom: 40px;
+        }
+
+        .moderator-card {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            margin-top: 20px;
+        }
+
+        .moderator-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #374151;
             font-size: 16px;
         }
-        .moderator {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 30px;
-            font-style: italic;
+
+        .moderator-info {
+            text-align: left;
         }
-        a {
-            display: inline-block;
-            background-color: #0284c7;
-            color: #ffffff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
+
+        .moderator-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--muted-color);
+            display: block;
+        }
+
+        .moderator-name {
+            font-size: 15px;
             font-weight: 600;
-            transition: background-color 0.2s;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
-        a:hover {
-            background-color: #0369a1;
+
+        .verified-badge {
+            color: #1d9bf0;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .verified-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .footer {
+            padding: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Google Translate Element Stili */
+        #google_translate_element {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>404</h1>
-        <h2>Axtardığın səhifə tapılmadı</h2>
-        <p>Görünür, daxil etdiyin ünvan səhvdir və ya bu səhifə artıq mövcud deyil.</p>
-        <div class="moderator">Moderator: Huseyn Bağırov</div>
-        <a href="/">Ana səhifəyə qayıt</a>
+        <!-- 404 Xətası -->
+        <h1>404 ERROR</h1>
+        
+        <!-- Açıqlama -->
+        <p>Hay aksi! Maalesef bu site bir moderatör tarafından inceleniliyor.. bakım molası 15 - 1 saat içerisinde sona erecektir.</p>
+
+        <!-- Moderator Kartı -->
+        <div class="moderator-card">
+            <div class="moderator-avatar">HB</div>
+            <div class="moderator-info">
+                <span class="moderator-label">SİTEYİ İNCELEYEN MODERATÖR</span>
+                <span class="moderator-name">
+                    Huseyn Bağırov
+                    <span class="verified-badge" title="Təsdiqlənmiş hesab">
+                        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                    </span>
+                </span>
+            </div>
+        </div>
     </div>
+
+    <!-- Google Translate Bölməsi -->
+    <div class="footer">
+        <div id="google_translate_element"></div>
+    </div>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'tr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
