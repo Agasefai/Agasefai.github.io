@@ -33,7 +33,7 @@
             margin: auto;
         }
 
-        /* Başlıq və 3D Koalanı yan-yana və mərkəzdə saxlamaq üçün */
+        /* Başlıq və 3D Wumpus Koalanı yan-yana və mərkəzdə saxlamaq üçün */
         .error-header {
             display: flex;
             align-items: center;
@@ -49,18 +49,18 @@
             letter-spacing: -2px;
         }
 
-        /* 3D Discord Koala Stili (Kölgə və dərinlik effekti ilə) */
+        /* 3D Wumpus/Koala Stili (Kölgə və dərinlik effekti ilə) */
         .discord-koala-3d {
-            width: 75px;
-            height: 75px;
-            background: linear-gradient(135deg, #5865F2, #404eed);
-            border-radius: 20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #7289da, #5865F2);
+            border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             /* 3D qabarıqlıq və kölgə effekti */
             box-shadow: 0 12px 25px rgba(88, 101, 242, 0.4), 
-                        inset 0 4px 6px rgba(255, 255, 255, 0.3), 
+                        inset 0 4px 6px rgba(255, 255, 255, 0.4), 
                         inset 0 -4px 6px rgba(0, 0, 0, 0.2);
             transform: perspective(500px) rotateY(-8deg) rotateX(5deg);
             transition: transform 0.3s ease;
@@ -70,12 +70,10 @@
             transform: perspective(500px) rotateY(0deg) rotateX(0deg) scale(1.05);
         }
 
-        /* Koala simvolu (Böyük qulaqlar və burun) */
         .discord-koala-3d svg {
-            width: 48px;
-            height: 48px;
-            fill: #ffffff;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            width: 55px;
+            height: 55px;
+            filter: drop-shadow(0 3px 5px rgba(0,0,0,0.25));
         }
 
         p {
@@ -157,22 +155,35 @@
 <body>
 
     <div class="container">
-        <!-- Başlıq və 3D Discord Koala Yan-yana -->
+        <!-- Başlıq və 3D Wumpus Koala Yan-yana -->
         <div class="error-header">
-            <!-- 3D Discord Stilində Koala İkonu -->
-            <div class="discord-koala-3d" title="Discord Koala">
-                <svg viewBox="0 0 24 24">
+            <!-- 3D Wumpus / Discord Koala İkonu (Başında yarpağı ilə) -->
+            <div class="discord-koala-3d" title="Wumpus Koala">
+                <svg viewBox="0 0 32 32">
+                    <!-- Yaşıl yarpaq (başın üstündə) -->
+                    <path d="M16 3 C13 1, 10 3, 11 6 C13 8, 16 6, 16 3 Z" fill="#57F287"/>
+                    <path d="M16 6 Q16 9, 14.5 10.5" stroke="#2ecc71" stroke-width="0.8" fill="none"/>
+                    
                     <!-- Sol qulaq -->
-                    <circle cx="5" cy="8" r="3.5" fill="#ffffff" opacity="0.9"/>
+                    <rect x="2" y="11" width="5" height="8" rx="2.5" fill="#7289da"/>
                     <!-- Sağ qulaq -->
-                    <circle cx="19" cy="8" r="3.5" fill="#ffffff" opacity="0.9"/>
-                    <!-- Baş hissəsi -->
-                    <ellipse cx="12" cy="14" rx="6.5" ry="5.5" fill="#ffffff"/>
+                    <rect x="25" y="11" width="5" height="8" rx="2.5" fill="#7289da"/>
+                    
+                    <!-- Əsas Kvadrat/Oval Baş korpusu -->
+                    <rect x="6" y="9" width="20" height="15" rx="6.5" fill="#7289da"/>
+                    
+                    <!-- Üz hissəsi (Ağ ağız/burun sahəsi) -->
+                    <rect x="9.5" y="14" width="13" height="9" rx="4.5" fill="#ffffff"/>
+                    
                     <!-- Gözlər -->
-                    <circle cx="9.5" cy="12.5" r="0.9" fill="#23272A"/>
-                    <circle cx="14.5" cy="12.5" r="0.9" fill="#23272A"/>
-                    <!-- Böyük Koala Burnu -->
-                    <path d="M10.5 13.5 C10.5 12.8, 13.5 12.8, 13.5 13.5 C13.5 14.8, 10.5 14.8, 10.5 13.5 Z" fill="#23272A"/>
+                    <circle cx="12.5" cy="17" r="1.1" fill="#23272A"/>
+                    <circle cx="19.5" cy="17" r="1.1" fill="#23272A"/>
+                    
+                    <!-- Burnu -->
+                    <ellipse cx="16" cy="18.5" rx="2" ry="1.2" fill="#23272A"/>
+                    
+                    <!-- Təbəssüm -->
+                    <path d="M15 20.2 Q16 21.2, 17 20.2" stroke="#23272A" stroke-width="0.8" stroke-linecap="round" fill="none"/>
                 </svg>
             </div>
             <h1>404 ERROR</h1>
@@ -210,4 +221,5 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
-</html>
+        </html>
+    
