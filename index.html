@@ -2,71 +2,28 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Face ID Giriş</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #0f172a; color: #fff; }
-        button { padding: 12px 24px; font-size: 16px; background-color: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; }
-        button:hover { background-color: #2563eb; }
-        #netice { margin-top: 20px; font-weight: bold; }
-    </style>
+    <title>Netlify Giriş</title>
+    <!-- Netlify Identity Vidcet Kitabxanası -->
+    <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
-    <h2>Biometrik (Face ID / Barmaq izi) Giriş</h2>
-    <p>Səhifəyə daxil olmaq üçün düyməni sıxın:</p>
+    <h2>Biznes Saytıma Xoş Gəlmisiniz</h2>
     
-    <button onclick="faceIdGiris()">Face ID ilə Giriş Et</button>
-    <div id="netice"></div>
+    <!-- Giriş Düyməsi -->
+    <div data-netlify-identity-menu></div>
 
     <script>
-        async function faceIdGiris() {
-            const neticeDiv = document.getElementById("netice");
-
-            // Brauzerin bu funksiyanı dəstəkləyib-dəstəkləmədiyini yoxlayırıq
-            if (!window.PublicKeyCredential) {
-                neticeDiv.style.color = "red";
-                neticeDiv.innerText = "Təəssüf ki, brauzeriniz biometrik girişi dəstəkləmir.";
-                return;
-            }
-
-            try {
-                // Unikal bir istifadəçi təsadüfi ID-si
-                const challenge = new Uint8Array([21, 31, 105, 78, 18, 45, 77, 10]);
-                
-                const credentialOptions = {
-                    publicKey: {
-                        challenge: challenge,
-                        rp: { name: "Mənim Saytım", id: window.location.hostname },
-                        user: {
-                            id: new Uint8Array([1, 2, 3, 4]),
-                            name: "istifadeci@example.com",
-                            displayName: "İstifadəçi"
-                        },
-                        pubKeyCredParams: [{ alg: -7, type: "public-key" }],
-                        timeout: 60000,
-                        attestation: "direct"
-                    }
-                };
-
-                // Telefonun Face ID / Touch ID pəncərəsini açır
-                neticeDiv.style.color = "#facc15";
-                neticeDiv.innerText = "Üzünüzü və ya barmaq izinizi skan edin...";
-                
-                const credential = await navigator.credentials.create(credentialOptions);
-
-                if (credential) {
-                    neticeDiv.style.color = "#22c55e";
-                    neticeDiv.innerText = "Uğurludur! Giriş təsdiqləndi. Xoş gəlmisiniz!";
-                    
-                    // İstəsəniz burada başqa səhifəyə yönləndirə bilərsiniz:
-                    // window.location.href = "esas-sehife.html";
-                }
-            } catch (error) {
-                neticeDiv.style.color = "#ef4444";
-                neticeDiv.innerText = "Giriş ləğv edildi və ya xəta baş verdi: " + error.message;
-            }
-        }
+      // İstifadəçi daxil olduqda və ya çıxdıqda baş verənlər
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.reload();
+            });
+          }
+        });
+      }
     </script>
-
 </body>
 </html>
