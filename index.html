@@ -2,15 +2,71 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <title>Giriş</title>
+    <title>Face ID Giriş</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 100px; background-color: #0f172a; color: #fff; }
+        button { padding: 12px 24px; font-size: 16px; background-color: #3b82f6; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        button:hover { background-color: #2563eb; }
+        #netice { margin-top: 20px; font-weight: bold; }
+    </style>
 </head>
 <body>
+
+    <h2>Biometrik (Face ID / Barmaq izi) Giriş</h2>
+    <p>Səhifəyə daxil olmaq üçün düyməni sıxın:</p>
+    
+    <button onclick="faceIdGiris()">Face ID ilə Giriş Et</button>
+    <div id="netice"></div>
+
     <script>
-        let sifre = prompt("Zəhmət olmasa şifrəni daxil edin:");
-        if (sifre !== "12345") { // Öz şifrənizi bura yazın
-            document.body.innerHTML = "<h2>Giriş qadağandır! Şifrə səhvdir.</h2>";
+        async function faceIdGiris() {
+            const neticeDiv = document.getElementById("netice");
+
+            // Brauzerin bu funksiyanı dəstəkləyib-dəstəkləmədiyini yoxlayırıq
+            if (!window.PublicKeyCredential) {
+                neticeDiv.style.color = "red";
+                neticeDiv.innerText = "Təəssüf ki, brauzeriniz biometrik girişi dəstəkləmir.";
+                return;
+            }
+
+            try {
+                // Unikal bir istifadəçi təsadüfi ID-si
+                const challenge = new Uint8Array([21, 31, 105, 78, 18, 45, 77, 10]);
+                
+                const credentialOptions = {
+                    publicKey: {
+                        challenge: challenge,
+                        rp: { name: "Mənim Saytım", id: window.location.hostname },
+                        user: {
+                            id: new Uint8Array([1, 2, 3, 4]),
+                            name: "istifadeci@example.com",
+                            displayName: "İstifadəçi"
+                        },
+                        pubKeyCredParams: [{ alg: -7, type: "public-key" }],
+                        timeout: 60000,
+                        attestation: "direct"
+                    }
+                };
+
+                // Telefonun Face ID / Touch ID pəncərəsini açır
+                neticeDiv.style.color = "#facc15";
+                neticeDiv.innerText = "Üzünüzü və ya barmaq izinizi skan edin...";
+                
+                const credential = await navigator.credentials.create(credentialOptions);
+
+                if (credential) {
+                    neticeDiv.style.color = "#22c55e";
+                    neticeDiv.innerText = "Uğurludur! Giriş təsdiqləndi. Xoş gəlmisiniz!";
+                    
+                    // İstəsəniz burada başqa səhifəyə yönləndirə bilərsiniz:
+                    // window.location.href = "esas-sehife.html";
+                }
+            } catch (error) {
+                neticeDiv.style.color = "#ef4444";
+                neticeDiv.innerText = "Giriş ləğv edildi və ya xəta baş verdi: " + error.message;
+            }
         }
     </script>
-    <h1>Xoş gəlmisiniz! Səhifə uğurla açıldı.</h1>
+
 </body>
 </html>
